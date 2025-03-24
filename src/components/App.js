@@ -1,26 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import '../styles/Login.css';
 
-function App() {
+function Login({ onLogin }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (username === 'user' && password === 'password') {
+      onLogin();
+    } else {
+      setError('Nom d\'utilisateur ou mot de passe incorrect.');
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <div>hello world</div>
-      </header>
+    <div className="Login">
+      <h2>Connexion</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Nom d'utilisateur :</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Mot de passe :</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {error && <p className="error">{error}</p>}
+        <button type="submit">Se connecter</button>
+      </form>
     </div>
   );
 }
 
-export default App;
+export default Login;
