@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Login.css'; // Assurez-vous d'avoir un fichier CSS pour le style
+import './Login.css';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -8,10 +8,10 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Logique de connexion ici
+    
     if (username === 'user' && password === 'password') {
       alert('Connexion réussie !');
-      // Rediriger ou effectuer d'autres actions après une connexion réussie
+  
     } else {
       setError('Nom d\'utilisateur ou mot de passe incorrect.');
     }
