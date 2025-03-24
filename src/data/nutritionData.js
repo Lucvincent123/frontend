@@ -1,0 +1,21 @@
+const nutritionData = [
+  { 'Nom de l\'aliment': 'Pomme', 'Type': 'unité', 'Calories (kcal)': 52, 'Protéines (g)': 0.3, 'Glucides (g)': 14.3, 'Lipides (g)': 0.2, 'Fibres (g)': 2.4, 'Vitamine A (UI)': 54, 'Vitamine C (mg)': 4.6, 'Calcium (mg)': 6, 'Fer (mg)': 0.12 },
+  { 'Nom de l\'aliment': 'Banane', 'Type': 'unité', 'Calories (kcal)': 89, 'Protéines (g)': 1.1, 'Glucides (g)': 22.8, 'Lipides (g)': 0.3, 'Fibres (g)': 2.6, 'Vitamine A (UI)': 76, 'Vitamine C (mg)': 8.7, 'Calcium (mg)': 5, 'Fer (mg)': 0.26 },
+  { 'Nom de l\'aliment': 'Riz (cuit)', 'Type': 'masse', 'Calories (kcal)': 130, 'Protéines (g)': 2.7, 'Glucides (g)': 28.2, 'Lipides (g)': 0.3, 'Fibres (g)': 0.6, 'Vitamine A (UI)': 0, 'Vitamine C (mg)': 0, 'Calcium (mg)': 10, 'Fer (mg)': 0.8 },
+  { 'Nom de l\'aliment': 'Poulet (poitrine)', 'Type': 'masse', 'Calories (kcal)': 165, 'Protéines (g)': 31, 'Glucides (g)': 0, 'Lipides (g)': 3.6, 'Fibres (g)': 0, 'Vitamine A (UI)': 21, 'Vitamine C (mg)': 0, 'Calcium (mg)': 11, 'Fer (mg)': 0.9 },
+  { 'Nom de l\'aliment': 'Pâtes (cuites)', 'Type': 'masse', 'Calories (kcal)': 158, 'Protéines (g)': 5.8, 'Glucides (g)': 30.8, 'Lipides (g)': 0.6, 'Fibres (g)': 1.2, 'Vitamine A (UI)': 0, 'Vitamine C (mg)': 0, 'Calcium (mg)': 7, 'Fer (mg)': 0.7 },
+  { 'Nom de l\'aliment': 'Bœuf (maigre)', 'Type': 'masse', 'Calories (kcal)': 217, 'Protéines (g)': 26, 'Glucides (g)': 0, 'Lipides (g)': 11.8, 'Fibres (g)': 0, 'Vitamine A (UI)': 10, 'Vitamine C (mg)': 0, 'Calcium (mg)': 15, 'Fer (mg)': 2.7 },
+  { 'Nom de l\'aliment': 'Saumon (cuit)', 'Type': 'masse', 'Calories (kcal)': 206, 'Protéines (g)': 25.8, 'Glucides (g)': 0, 'Lipides (g)': 10.6, 'Fibres (g)': 0, 'Vitamine A (UI)': 50, 'Vitamine C (mg)': 0, 'Calcium (mg)': 14, 'Fer (mg)': 0.8 },
+  { 'Nom de l\'aliment': 'Œuf (moyen)', 'Type': 'unité', 'Calories (kcal)': 70, 'Protéines (g)': 6.3, 'Glucides (g)': 0.6, 'Lipides (g)': 4.8, 'Fibres (g)': 0, 'Vitamine A (UI)': 270, 'Vitamine C (mg)': 0, 'Calcium (mg)': 25, 'Fer (mg)': 0.9 },
+  { 'Nom de l\'aliment': 'Lait (écrémé)', 'Type': 'masse', 'Calories (kcal)': 34, 'Protéines (g)': 3.4, 'Glucides (g)': 5, 'Lipides (g)': 0.1, 'Fibres (g)': 0, 'Vitamine A (UI)': 395, 'Vitamine C (mg)': 0, 'Calcium (mg)': 125, 'Fer (mg)': 0.1 },
+  { 'Nom de l\'aliment': 'Brocoli (cuit)', 'Type': 'masse', 'Calories (kcal)': 35, 'Protéines (g)': 2.8, 'Glucides (g)': 7, 'Lipides (g)': 0.4, 'Fibres (g)': 3.3, 'Vitamine A (UI)': 681, 'Vitamine C (mg)': 89.2, 'Calcium (mg)': 47, 'Fer (mg)': 0.7 },
+  { 'Nom de l\'aliment': 'Carotte (crue)', 'Type': 'masse', 'Calories (kcal)': 41, 'Protéines (g)': 0.9, 'Glucides (g)': 9.6, 'Lipides (g)': 0.2, 'Fibres (g)': 2.8, 'Vitamine A (UI)': 16706, 'Vitamine C (mg)': 5.9, 'Calcium (mg)': 33, 'Fer (mg)': 0.3 },
+  { 'Nom de l\'aliment': 'Pomme de terre (cuite)', 'Type': 'masse', 'Calories (kcal)': 97, 'Protéines (g)': 2.4, 'Glucides (g)': 21.5, 'Lipides (g)': 0.1, 'Fibres (g)': 2.2, 'Vitamine A (UI)': 2, 'Vitamine C (mg)': 12.6, 'Calcium (mg)': 12, 'Fer (mg)': 0.7 },
+  { 'Nom de l\'aliment': 'Avocat (moyen)', 'Type': 'unité', 'Calories (kcal)': 240, 'Protéines (g)': 3, 'Glucides (g)': 12, 'Lipides (g)': 22, 'Fibres (g)': 10, 'Vitamine A (UI)': 293, 'Vitamine C (mg)': 16, 'Calcium (mg)': 18, 'Fer (mg)': 1 },
+  { 'Nom de l\'aliment': 'Orange (moyenne)', 'Type': 'unité', 'Calories (kcal)': 62, 'Protéines (g)': 1.2, 'Glucides (g)': 15.4, 'Lipides (g)': 0.2, 'Fibres (g)': 3.1, 'Vitamine A (UI)': 295, 'Vitamine C (mg)': 53.2, 'Calcium (mg)': 52, 'Fer (mg)': 0.2 },
+  { 'Nom de l\'aliment': 'Yaourt nature', 'Type': 'masse', 'Calories (kcal)': 59, 'Protéines (g)': 3.5, 'Glucides (g)': 9.2, 'Lipides (g)': 0.2, 'Fibres (g)': 0, 'Vitamine A (UI)': 24, 'Vitamine C (mg)': 1.1, 'Calcium (mg)': 127, 'Fer (mg)': 0.1 },
+  { 'Nom de l\'aliment': 'Pain blanc', 'Type': 'masse', 'Calories (kcal)': 265, 'Protéines (g)': 9.3, 'Glucides (g)': 49.1, 'Lipides (g)': 3.3, 'Fibres (g)': 2.7, 'Vitamine A (UI)': 0, 'Vitamine C (mg)': 0, 'Calcium (mg)': 30, 'Fer (mg)': 2.5 },
+  { 'Nom de l\'aliment': 'Amandes', 'Type': 'masse', 'Calories (kcal)': 579, 'Protéines (g)': 21.2, 'Glucides (g)': 21.6, 'Lipides (g)': 49.9, 'Fibres (g)': 12.5, 'Vitamine A (UI)': 0, 'Vitamine C (mg)': 0, 'Calcium (mg)': 269, 'Fer (mg)': 3.7 },
+];
+
+export default nutritionData;
