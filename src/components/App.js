@@ -6,8 +6,12 @@ function Login({ onLogin }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const response = await fetch("http://localhost:5000/api/users")
+    console.log(response)
+    const data = await response.json()
+    console.log(data.data)
     if (username === 'user' && password === 'password') {
       onLogin();
     } else {
