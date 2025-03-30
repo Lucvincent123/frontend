@@ -1,0 +1,77 @@
+#timeline {
+  width: 80%;
+  margin: 50px auto;
+  position: relative;
+  height: 100px;
+  background: linear-gradient(to right, transparent, #f9f9f9 25%, #f9f9f9 75%, transparent);
+  border: 2px solid #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent transparent #000;
+  transform: translateY(-50%);
+}
+
+.event {
+  position: absolute;
+  background-color: #007BFF;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: move;
+  user-select: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, background-color 0.5s;
+}
+
+.event:hover {
+  transform: scale(1.05);
+}
+
+.fixed-event {
+  cursor: default;
+  background-color: #28a745;
+}
+
+.fixed-event:hover {
+  transform: none;
+}
+
+.proposed-event-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.proposed-event {
+  display: inline-block;
+  background-color: #ffc107;
+  cursor: grab;
+}
+
+.proposed-event.correct {
+  animation: correctAnimation 1s;
+}
+
+.proposed-event.incorrect {
+  animation: incorrectAnimation 1s;
+}
+
+@keyframes correctAnimation {
+  0% { background-color: #ffc107; }
+  50% { background-color: #28a745; }
+  100% { background-color: #ffc107; }
+}
+
+@keyframes incorrectAnimation {
+  0% { background-color: #ffc107; }
+  50% { background-color: #dc3545; }
+  100% { background-color: #ffc107; }
+}

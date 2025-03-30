@@ -1,0 +1,29 @@
+header {
+    background-color: #2563eb;
+    color: white;
+    padding: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul {
+    display: flex;
+    gap: 16px;
+    list-style: none;
+}
+
+li a {
+    text-decoration: none;
+    color: white;
+    transition: opacity 0.3s ease-in-out;
+}
+
+li a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}

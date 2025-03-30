@@ -1,5 +1,13 @@
-export default function HomePage() {
+import React from 'react';
+import Timeline from './Timeline'; 
+
+const HomePage = () => {
     return (
-        <h1>Home Page</h1>
-    )
-}
+        <div>
+            <h1>Bienvenue sur la Page Principale</h1>
+            <Timeline />
+        </div>
+    );
+};
+
+export default HomePage;
