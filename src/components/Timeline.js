@@ -3,7 +3,7 @@ import '../styles/Timeline.css'; // Assurez-vous d'importer le fichier CSS
 
 const Timeline = () => {
     const [events, setEvents] = useState([
-        { id: 1, text: '1789 - Révolution Française', position: 100, fixed: true },
+        { id: 1, text: '1789 - Révolution Française', position: 100, fixed: true, image:'https://i.imgur.com/HO21ehl.png',annee: 1922 },
     ]);
 
     const [proposedEvent, setProposedEvent] = useState({
