@@ -10,7 +10,7 @@ const Timeline = () => {
     const [isCorrect, setIsCorrect] = useState(null);
 
     useEffect(() => {
-    fetch.get('http://localhost:5000/api/events')
+    fetch('http://localhost:5000/api/events')
         .then(response => {
             console.log("Données récupérées:", response.data);
             const events = response.data;
