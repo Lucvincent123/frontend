@@ -60,7 +60,7 @@ const Timeline = () => {
                         className={`event ${event.fixed ? 'fixed-event' : ''}`}
                         style={{ left: `${event.position}px` }}
                     >
-                        {event.text}
+                      {event.text}
                     </div>
                 ))}
                 {droppedPosition !== null && (
@@ -68,8 +68,15 @@ const Timeline = () => {
                         className={`event proposed-event ${isCorrect !== null ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
                         style={{ left: `${droppedPosition}px` }}
                     >
-                        {proposedEvent.text}
+                      {proposedEvent.text}
                     </div>
+                  </div>
+                    // <div
+                    //     className={`event proposed-event ${isCorrect !== null ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
+                    //     style={{ left: `${proposedEvent.position}px` }}
+                    // >
+                    //     {proposedEvent.text}
+                    // </div>
                 )}
             </div>
             {proposedEvent && droppedPosition === null && (
@@ -78,6 +85,15 @@ const Timeline = () => {
                         {proposedEvent.text}
                     </div>
                 </div>
+                // <div
+                //     className="proposed-event-container"
+                //     draggable
+                //     onDragStart={(e) => handleDragStart(e, proposedEvent.id)}
+                // >
+                //     <div className="event proposed-event">
+                //         {proposedEvent.text}
+                //     </div>
+                // </div>
             )}
         </div>
     );
