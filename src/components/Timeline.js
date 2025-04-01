@@ -68,7 +68,10 @@ const Timeline = () => {
                     <div
                         key={event.ID}
                         className={`event ${event.fixed ? 'fixed-event' : ''}`}
-                        style={{ left: `${event.position}px` }}
+                        style={{
+                            left: `${event.position}px`,
+                            backgroundImage: `url(${event.Image})`
+                        }}
                     >
                         {event.Événement}
                     </div>
@@ -76,7 +79,10 @@ const Timeline = () => {
                 {droppedPosition !== null && (
                     <div
                         className={`event proposed-event ${isCorrect !== null ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
-                        style={{ left: `${droppedPosition}px` }}
+                        style={{
+                            left: `${droppedPosition}px`,
+                            backgroundImage: `url(${proposedEvent.Image})`
+                        }}
                     >
                         {proposedEvent.Événement}
                     </div>
@@ -84,7 +90,7 @@ const Timeline = () => {
             </div>
             {proposedEvent && droppedPosition === null && (
                 <div className="proposed-event-container" draggable>
-                    <div className="event proposed-event">
+                    <div className="event proposed-event" style={{ backgroundImage: `url(${proposedEvent.Image})` }}>
                         {proposedEvent.Événement}
                     </div>
                 </div>
