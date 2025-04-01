@@ -22,7 +22,6 @@
 
 .event {
   position: absolute;
-  background-color: #28a745;;
   color: white;
   padding: 15px;
   border-radius: 5px;
@@ -30,6 +29,8 @@
   user-select: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, background-color 0.5s;
+  background-size: cover; /* Assurez-vous que l'image couvre toute la zone */
+  background-position: center; /* Centre l'image */
 }
 
 .event:hover {
@@ -38,7 +39,6 @@
 
 .fixed-event {
   cursor: default;
-  background-color: #28a745;
 }
 
 .fixed-event:hover {
