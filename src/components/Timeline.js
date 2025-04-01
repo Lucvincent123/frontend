@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../styles/Timeline.css';
 
 const Timeline = () => {
-    const eventList = [
-        { id: 1, text: '1789 - Révolution Française', year: 1789 },
-        { id: 2, text: '1914 - Début Première Guerre Mondiale', year: 1914 },
-        { id: 3, text: '1945 - Fin Seconde Guerre Mondiale', year: 1945 },
-        { id: 4, text: '1969 - Premier pas sur la Lune', year: 1969 }
-    ];
-
-    const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
-    const shuffledEvents = shuffleArray([...eventList]);
-    const initialEvent = shuffledEvents.shift();
-    initialEvent.fixed = true;
-    initialEvent.position = 200;
-
-    const [events, setEvents] = useState([initialEvent]);
-    const [eventQueue] = useState(shuffledEvents);
+    const [eventList, setEventList] = useState([]);
+    const [events, setEvents] = useState([]);
+    const [eventQueue, setEventQueue] = useState([]);
     const [currentEventIndex, setCurrentEventIndex] = useState(0);
     const [droppedPosition, setDroppedPosition] = useState(null);
     const [isCorrect, setIsCorrect] = useState(null);
+
+    useEffect(() => {
+        // Récupérer les événements depuis le backend
+        axios.get('http://localhost:5000/api/events')
+            .then(response => {
+                const events = response.data;
+                setEventList(events);
+
+                // Mélanger et initialiser les événements
+                const shuffledEvents = events.sort(() => Math.random() - 0.5);
+                const initialEvent = shuffledEvents.shift();
+                initialEvent.fixed = true;
+                initialEvent.position = 200;
+
+                setEvents([initialEvent]);
+                setEventQueue(shuffledEvents);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des événements :', error);
+            });
+    }, []);
 
     const proposedEvent = eventQueue[currentEventIndex] || null;
 
@@ -31,13 +41,13 @@ const Timeline = () => {
         setDroppedPosition(newPosition);
 
         const sortedEvents = [...events, { ...proposedEvent, position: newPosition }].sort((a, b) => a.position - b.position);
-        const index = sortedEvents.findIndex(e => e.id === proposedEvent.id);
+        const index = sortedEvents.findIndex(e => e.ID === proposedEvent.ID);
         const leftEvent = sortedEvents[index - 1];
         const rightEvent = sortedEvents[index + 1];
 
-        const isCorrectPosition = 
-            (!leftEvent || leftEvent.year < proposedEvent.year) &&
-            (!rightEvent || rightEvent.year > proposedEvent.year);
+        const isCorrectPosition =
+            (!leftEvent || leftEvent.Année < proposedEvent.Année) &&
+            (!rightEvent || rightEvent.Année > proposedEvent.Année);
 
         setIsCorrect(isCorrectPosition);
 
@@ -56,11 +66,11 @@ const Timeline = () => {
             <div id="timeline" onDragOver={(e) => e.preventDefault()} onDrop={handleDrop}>
                 {events.map(event => (
                     <div
-                        key={event.id}
+                        key={event.ID}
                         className={`event ${event.fixed ? 'fixed-event' : ''}`}
                         style={{ left: `${event.position}px` }}
                     >
-                        {event.text}
+                        {event.Événement}
                     </div>
                 ))}
                 {droppedPosition !== null && (
@@ -68,14 +78,14 @@ const Timeline = () => {
                         className={`event proposed-event ${isCorrect !== null ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
                         style={{ left: `${droppedPosition}px` }}
                     >
-                        {proposedEvent.text}
+                        {proposedEvent.Événement}
                     </div>
                 )}
             </div>
             {proposedEvent && droppedPosition === null && (
                 <div className="proposed-event-container" draggable>
                     <div className="event proposed-event">
-                        {proposedEvent.text}
+                        {proposedEvent.Événement}
                     </div>
                 </div>
             )}
