@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import '../styles/Timeline.css';
 
 const Timeline = () => {
@@ -11,7 +10,7 @@ const Timeline = () => {
     const [isCorrect, setIsCorrect] = useState(null);
 
     useEffect(() => {
-    axios.get('http://localhost:5000/api/events')
+    fetch.get('http://localhost:5000/api/events')
         .then(response => {
             console.log("Données récupérées:", response.data);
             const events = response.data;
