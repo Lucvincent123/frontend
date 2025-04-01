@@ -11,25 +11,34 @@ const Timeline = () => {
     const [isCorrect, setIsCorrect] = useState(null);
 
     useEffect(() => {
-        // Récupérer les événements depuis le backend
-        axios.get('http://localhost:5000/api/events')
-            .then(response => {
-                const events = response.data;
-                setEventList(events);
+    axios.get('http://localhost:5000/api/events')
+        .then(response => {
+            console.log("Données récupérées:", response.data);
+            const events = response.data;
+            setEventList(events);
 
-                // Mélanger et initialiser les événements
-                const shuffledEvents = events.sort(() => Math.random() - 0.5);
-                const initialEvent = shuffledEvents.shift();
-                initialEvent.fixed = true;
-                initialEvent.position = 200;
+            if (events.length === 0) {
+                console.warn("Aucun événement récupéré !");
+                return;
+            }
 
-                setEvents([initialEvent]);
-                setEventQueue(shuffledEvents);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération des événements :', error);
-            });
+            // Mélanger et initialiser les événements
+            const shuffledEvents = [...events].sort(() => Math.random() - 0.5);
+            const initialEvent = shuffledEvents.shift();
+            
+            if (!initialEvent) return;
+            
+            initialEvent.fixed = true;
+            initialEvent.position = 200;
+
+            setEvents([initialEvent]);
+            setEventQueue(shuffledEvents);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des événements :', error);
+        });
     }, []);
+
 
     const proposedEvent = eventQueue[currentEventIndex] || null;
 
