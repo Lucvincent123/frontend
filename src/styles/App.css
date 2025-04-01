@@ -15,6 +15,9 @@
 
 .App-header {
   background-color: #282c34;
+   background-image: url('https://i.ebayimg.com/00/s/OTA1WDE2MDA=/z/9R4AAOSwZbNjUF9B/$_57.JPG?set_id=880000500F');
+  background-size: cover;
+  background-position: center;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
