@@ -22,7 +22,7 @@
 
 .event {
   position: absolute;
-  background-color: #007BFF;
+  background-color: #28a745;;
   color: white;
   padding: 15px;
   border-radius: 5px;
@@ -66,12 +66,10 @@
 
 @keyframes correctAnimation {
   0% { background-color: #ffc107; }
-  50% { background-color: #28a745; }
-  100% { background-color: #ffc107; }
+  100% { background-color: #28a745; }
 }
 
 @keyframes incorrectAnimation {
   0% { background-color: #ffc107; }
-  50% { background-color: #dc3545; }
-  100% { background-color: #ffc107; }
+  100% { background-color: #dc3545; }
 }
