@@ -1,29 +1,36 @@
+/* Assurez-vous que le conteneur de la frise a une hauteur fixe et un débordement auto */
+.timeline-container {
+    height: 400px; /* Ajustez la hauteur selon vos besoins */
+    overflow-x: auto; /* Active le défilement vertical */
+    overscroll-behavior-x: contain; /* Empêche le défilement de la page */
+}
+
 #timeline {
-  width: 80%;
-  margin: 50px auto;
+  width: 100%;
+  margin: 125px auto;
   position: relative;
-  height: 200px;
-  background: linear-gradient(to right, transparent, #f9f9f9 25%, #f9f9f9 75%, transparent);
-  border: 2px solid #000;
-  border-radius: 8px;
-  overflow: hidden;
+  height: 100px; /* Hauteur réduite pour le trait */
+  border: none; /* Supprime la bordure */
+  background: rgba(0, 0, 0, 0.1); /* Supprime l'arrière-plan */
+  border-radius: 10px; /* Coins arrondis */
+  overflow: visible; /* Assurez-vous que les éléments peuvent dépasser */
 }
 
 #timeline::before {
   content: '';
   position: absolute;
   top: 50%;
-  right: -10px;
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent transparent transparent #000;
+  left: 0;
+  right: 0;
+  height: 2px; /* Épaisseur du trait */
+  background-color: #000; /* Couleur du trait */
   transform: translateY(-50%);
 }
 
 .event {
-  position: absolute;
+  position:absolute;
   color: white;
-  padding: 15px;
+  padding: 15px; /* Ajuste la taille de la carte */
   border-radius: 5px;
   cursor: move;
   user-select: none;
@@ -31,6 +38,16 @@
   transition: transform 0.2s, background-color 0.5s;
   background-size: cover;
   background-position: center;
+  white-space: nowrap; /* Empêche le texte de passer à la ligne */
+  text-shadow: -1px -1px 0 black,
+               1px -1px 0 black,
+              -1px  1px 0 black,
+               1px  1px 0 black;
+  max-width: 150px; /* Ajuste cette valeur selon tes besoins */
+  word-wrap: break-word; /* Permet au texte de passer à la ligne */
+  overflow: hidden; /* Empêche le texte de déborder */
+  text-align: center; /* Centre le texte dans la carte */
+  white-space: normal; /* Autorise le retour à la ligne */
 }
 
 .event:hover {
@@ -46,30 +63,43 @@
 }
 
 .proposed-event-container {
-  margin-top: 20px;
+  position: relative;
+  margin-top: -70px;
   text-align: center;
 }
 
 .proposed-event {
+  position: relative;
   display: inline-block;
-  background-color: #ffc107;
+  border: 3px solid #ffc107;
   cursor: grab;
 }
 
 .proposed-event.correct {
-  animation: correctAnimation 1s;
+  animation: correctAnimation 1s forwards;
 }
 
 .proposed-event.incorrect {
-  animation: incorrectAnimation 1s;
+  animation: incorrectAnimation 1s forwards;
 }
 
 @keyframes correctAnimation {
-  0% { background-color: #ffc107; }
-  100% { background-color: #28a745; }
+  0% { border: 5px solid #ffc107; }
+  100% { border: 5px solid #28a745; }
 }
 
 @keyframes incorrectAnimation {
-  0% { background-color: #ffc107; }
-  100% { background-color: #dc3545; }
+  0% { border: 5px solid #ffc107; }
+  100% { border: 5px solid #dc3545; }
+}
+
+/* Styles pour les cartes au-dessus et en dessous */
+.event.above {
+  top: -2px; /* Ajustez cette valeur pour positionner correctement les cartes au-dessus */
+  transform: translateY(-100%);
+}
+
+.event.below {
+  top: 100px; /* Ajustez cette valeur pour positionner correctement les cartes en dessous */
+  transform: translateY(0);
 }
