@@ -4,7 +4,7 @@ const AboutusPage = () => {
     return (
         <div>
             <h1>À propos de nous</h1>
-            <p>Voici des informations sur notre entreprise...</p>
+            <p>Application imaginée et développée par Thien, Dang, Julien et Paul en TC.</p>
 
         </div>
     );
