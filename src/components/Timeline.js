@@ -10,34 +10,35 @@ const Timeline = () => {
     const [isCorrect, setIsCorrect] = useState(null);
 
     useEffect(() => {
-    fetch.get('http://localhost:5000/api/events')
-        .then(response => {
-            console.log("Données récupérées:", response.data);
-            const events = response.data;
-            setEventList(events);
-
-            if (events.length === 0) {
-                console.warn("Aucun événement récupéré !");
-                return;
-            }
-
-            // Mélanger et initialiser les événements
-            const shuffledEvents = [...events].sort(() => Math.random() - 0.5);
-            const initialEvent = shuffledEvents.shift();
-            
-            if (!initialEvent) return;
-            
-            initialEvent.fixed = true;
-            initialEvent.position = 200;
-
-            setEvents([initialEvent]);
-            setEventQueue(shuffledEvents);
-        })
-        .catch(error => {
-            console.error('Erreur lors de la récupération des événements :', error);
-        });
+        fetch('http://localhost:5000/api/events')
+            .then(response => response.json()) // Convertir la réponse en JSON
+            .then(data => {
+                console.log("Données récupérées:", data);
+                const events = data; // Récupère les événements à partir des données JSON
+                setEventList(events);
+    
+                if (events.length === 0) {
+                    console.warn("Aucun événement récupéré !");
+                    return;
+                }
+    
+                // Mélanger et initialiser les événements
+                const shuffledEvents = [...events].sort(() => Math.random() - 0.5);
+                const initialEvent = shuffledEvents.shift();
+                
+                if (!initialEvent) return;
+                
+                initialEvent.fixed = true;
+                initialEvent.position = 200;
+    
+                setEvents([initialEvent]);
+                setEventQueue(shuffledEvents);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des événements :', error);
+            });
     }, []);
-
+    
 
     const proposedEvent = eventQueue[currentEventIndex] || null;
 
