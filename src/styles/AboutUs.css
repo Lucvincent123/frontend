@@ -1,0 +1,31 @@
+/* AboutusPage.css */
+
+.aboutus-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .aboutus-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .aboutus-card {
+    text-align: center;
+  }
+  
+  .aboutus-card img {
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .aboutus-name {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  

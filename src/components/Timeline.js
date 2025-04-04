@@ -16,9 +16,9 @@ const Timeline = () => {
         const fetchData = (theme) => {
         fetch('http://localhost:5000/api/events')
             .then(response => response.json())
-            .then(data => {
-                console.log("Données récupérées:", data);
+            .then(data => {               
                 if (theme !== ""){data = data.filter(evenement => evenement.Catégories.includes(theme))};
+                console.log("Données récupérées:", data);
                 if (data.length === 0) {
                     console.warn("Aucun événement récupéré !");
                     return;
@@ -41,11 +41,32 @@ const Timeline = () => {
             });
         }
         if (action === "1") {
-        fetchData("Histoire");
+        fetchData("INSA");
 
       } else if (action === "2") {
+        fetchData("Moyen-Âge");
+
+      } else if (action === "3") {
+        fetchData("Contemporain");
+        
+      }else if (action === "4") {
+        fetchData("Vietnam");
+    
+      }else if (action === "5") {
         fetchData("Science");
-      } else {fetchData("");}
+    
+      }else if (action === "6") {
+        fetchData("Sport");
+    
+      }else if (action === "7") {
+        fetchData("Moderne");
+    
+      }else if (action === "8") {
+        fetchData("Antiquité");
+    
+      }
+
+      else {fetchData("");}
       
     }, [action]);
 
