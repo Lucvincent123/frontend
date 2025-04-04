@@ -8,6 +8,7 @@ const Timeline = () => {
     const [droppedPosition, setDroppedPosition] = useState(null);
     const [isCorrect, setIsCorrect] = useState(null);
 
+
     useEffect(() => {
         fetch('http://localhost:5000/api/events')
             .then(response => response.json())
