@@ -50,42 +50,42 @@ function App() {
       <CustomButton
         text="Sujet1"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={2}
+        action={4}
       />
       <CustomButton
         text="Sujet2"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={2}
+        action={5}
       />
       <CustomButton
         text="Sujet3"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={2}
+        action={6}
       />
       <CustomButton
         text="Sujet6"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={2}
+        action={7}
       />
       <CustomButton
         text="Sujet7"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={2}
+        action={8}
       />
       <CustomButton
         text="Sujet8"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={2}
+        action={9}
       />
       <CustomButton
         text="Sujet9"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={2}
+        action={10}
       />
       <CustomButton
         text="Sujet10"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={2}
+        action={11}
       />
     </div>
   );

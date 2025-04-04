@@ -18,7 +18,7 @@ const Timeline = () => {
             .then(response => response.json())
             .then(data => {
                 console.log("Données récupérées:", data);
-                data = data.filter(evenement => evenement.Catégories.includes(theme) 
+                if (theme !== ""){data = data.filter(evenement => evenement.Catégories.includes(theme))};
                 if (data.length === 0) {
                     console.warn("Aucun événement récupéré !");
                     return;
@@ -44,9 +44,10 @@ const Timeline = () => {
         fetchData("Histoire");
 
       } else if (action === "2") {
-        fetchData("http://localhost:5000/api/message");
-      }
-    }, []);
+        fetchData("Science");
+      } else {fetchData("");}
+      
+    }, [action]);
 
     const proposedEvent = eventQueue[currentEventIndex] || null;
 
