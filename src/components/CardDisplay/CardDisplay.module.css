@@ -1,0 +1,42 @@
+.container {
+    padding-left: 10px;
+    transition: margin-left .8s;
+}
+
+.active {
+    margin-left: 20%;
+}
+
+.inactive {
+    margin-left: 50px;
+}
+
+.cardContainer {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+
+
+.image {
+    width: 200px;
+    height: 100px;
+    
+}
+
+.card {
+    border: 5px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.5s;
+    transition: margin 0.5s;
+
+}
+
+.enabled:hover {
+    transform: scale(1.2);
+    margin: 20px;
+    border: 5px solid lightsalmon;
+}
+
