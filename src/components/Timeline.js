@@ -52,8 +52,8 @@ const Timeline = () => {
         const rightEvent = sortedEvents[index + 1];
 
         const isCorrectPosition =
-            (!leftEvent || leftEvent.Année < proposedEvent.Année) &&
-            (!rightEvent || rightEvent.Année > proposedEvent.Année);
+            (!leftEvent || leftEvent.Année <= proposedEvent.Année) &&
+            (!rightEvent || rightEvent.Année >= proposedEvent.Année);
 
         setIsCorrect(isCorrectPosition);
 
@@ -70,7 +70,7 @@ const Timeline = () => {
             setDroppedPosition(null);
         }, 1000);
     };
-
+    
     return (
         <div className="timeline-container">
             <div id="timeline" onDragOver={(e) => e.preventDefault()} onDrop={handleDrop}>
@@ -84,6 +84,11 @@ const Timeline = () => {
                         }}
                     >
                         {event.Événement}
+                        {/* Trait vertical reliant à la frise */}
+                        <div className="event-connector"></div>
+                        
+                        {/* Point d'ancrage sur la frise */}
+                        <div className="event-dot"></div>
                     </div>
                 ))}
                 {droppedPosition !== null && (
