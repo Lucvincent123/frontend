@@ -1,0 +1,16 @@
+.button {
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    /* margin-right: 20px; */
+}
+
+.button:hover{
+    background-color: white;
+    color: salmon;
+}

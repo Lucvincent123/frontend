@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Timeline.css';
+import { useLocation } from "react-router-dom";
 
 const Timeline = () => {
     const [events, setEvents] = useState([]);
@@ -7,14 +8,17 @@ const Timeline = () => {
     const [currentEventIndex, setCurrentEventIndex] = useState(0);
     const [droppedPosition, setDroppedPosition] = useState(null);
     const [isCorrect, setIsCorrect] = useState(null);
-
-
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const action = params.get("action");
+    
     useEffect(() => {
+        const fetchData = (theme) => {
         fetch('http://localhost:5000/api/events')
             .then(response => response.json())
             .then(data => {
                 console.log("Données récupérées:", data);
-
+                data = data.filter(evenement => evenement.Catégories.includes(theme) 
                 if (data.length === 0) {
                     console.warn("Aucun événement récupéré !");
                     return;
@@ -35,6 +39,13 @@ const Timeline = () => {
             .catch(error => {
                 console.error('Erreur lors de la récupération des événements :', error);
             });
+        }
+        if (action === "1") {
+        fetchData("Histoire");
+
+      } else if (action === "2") {
+        fetchData("http://localhost:5000/api/message");
+      }
     }, []);
 
     const proposedEvent = eventQueue[currentEventIndex] || null;
