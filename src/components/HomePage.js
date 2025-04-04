@@ -4,7 +4,8 @@ import Timeline from './Timeline';
 const HomePage = () => {
     return (
         <div>
-            <h1>Bienvenue sur la Page Principale</h1>
+            <h1>Play :</h1>
+        
             <Timeline />
         </div>
     );

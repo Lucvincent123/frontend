@@ -1,86 +1,112 @@
-import React, { useState } from 'react';
-import '../styles/Timeline.css'; // Assurez-vous d'importer le fichier CSS
+import React, { useState, useEffect } from 'react';
+import '../styles/Timeline.css';
 
 const Timeline = () => {
-    const [events, setEvents] = useState([
-        { id: 1, text: '1789 - Révolution Française', position: 100, fixed: true },
-    ]);
-
-    const [proposedEvent, setProposedEvent] = useState({
-        id: 2,
-        text: '1914 - Début Première Guerre Mondiale',
-        position: null,
-        fixed: false,
-    });
-
+    const [events, setEvents] = useState([]);
+    const [eventQueue, setEventQueue] = useState([]);
+    const [currentEventIndex, setCurrentEventIndex] = useState(0);
+    const [droppedPosition, setDroppedPosition] = useState(null);
     const [isCorrect, setIsCorrect] = useState(null);
 
-    const handleDragStart = (event, id) => {
-        if (!events.find(e => e.id === id)?.fixed) {
-            event.dataTransfer.setData('eventId', id);
-        }
-    };
+    useEffect(() => {
+        fetch('http://localhost:5000/api/events')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Données récupérées:", data);
 
-    const handleDragOver = (e) => {
-        e.preventDefault();
-    };
+                if (data.length === 0) {
+                    console.warn("Aucun événement récupéré !");
+                    return;
+                }
+
+                const shuffledEvents = [...data].sort(() => Math.random() - 0.5);
+                const initialEvent = shuffledEvents.shift();
+
+                if (!initialEvent) return;
+
+                initialEvent.fixed = true;
+                initialEvent.position = 500;
+                initialEvent.className = "above";
+
+                setEvents([initialEvent]);
+                setEventQueue(shuffledEvents);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des événements :', error);
+            });
+    }, []);
+
+    const proposedEvent = eventQueue[currentEventIndex] || null;
 
     const handleDrop = (e) => {
-        const eventId = e.dataTransfer.getData('eventId');
-        const newPosition = e.clientX - e.currentTarget.offsetLeft - 50;
+        e.preventDefault();
+        if (!proposedEvent) return;
 
-        if (eventId === '2') {
-            setProposedEvent(prev => ({
-                ...prev,
-                position: newPosition,
-            }));
+        const newPosition = e.clientX;
+        setDroppedPosition(newPosition);
 
-            // Logique pour vérifier si le placement est correct
-            const correctPosition = newPosition > 100; // Exemple simple
-            setIsCorrect(correctPosition);
+        const sortedEvents = [...events, { ...proposedEvent, position: newPosition }].sort((a, b) => a.position - b.position);
 
-            // Réinitialiser après un court délai pour permettre l'animation
-            setTimeout(() => {
-                setIsCorrect(null);
-                if (correctPosition) {
-                    setEvents(prev => [...prev, { ...proposedEvent, position: newPosition, fixed: true }]);
-                    setProposedEvent(null);
-                }
-            }, 1000);
-        }
+        const index = sortedEvents.findIndex(e => e.ID === proposedEvent.ID);
+        const leftEvent = sortedEvents[index - 1];
+        const rightEvent = sortedEvents[index + 1];
+
+        const isCorrectPosition =
+            (!leftEvent || leftEvent.Année <= proposedEvent.Année) &&
+            (!rightEvent || rightEvent.Année >= proposedEvent.Année);
+
+        setIsCorrect(isCorrectPosition);
+
+        setTimeout(() => {
+            if (isCorrectPosition) {
+                const updatedEvents = sortedEvents.map((event, i) => ({
+                    ...event,
+                    className: i % 2 === 0 ? 'above' : 'below'
+                }));
+                setEvents(updatedEvents);
+                setCurrentEventIndex(prev => prev + 1);
+            }
+            setIsCorrect(null);
+            setDroppedPosition(null);
+        }, 1000);
     };
-
+    
     return (
-        <div>
-            <div id="timeline" onDragOver={handleDragOver} onDrop={handleDrop}>
+        <div className="timeline-container">
+            <div id="timeline" onDragOver={(e) => e.preventDefault()} onDrop={handleDrop}>
                 {events.map(event => (
                     <div
-                        key={event.id}
-                        className={`event ${event.fixed ? 'fixed-event' : ''}`}
-                        style={{ left: `${event.position}px` }}
-                        draggable={!event.fixed}
-                        onDragStart={(e) => handleDragStart(e, event.id)}
+                        key={event.ID}
+                        className={`event ${event.fixed ? 'fixed-event' : ''} ${event.className}`}
+                        style={{
+                            left: `${event.position}px`,
+                            backgroundImage: `url(${event.Image})`
+                        }}
                     >
-                        {event.text}
+                        {event.Événement}
+                        {/* Trait vertical reliant à la frise */}
+                        <div className="event-connector"></div>
+                        
+                        {/* Point d'ancrage sur la frise */}
+                        <div className="event-dot"></div>
                     </div>
                 ))}
-                {proposedEvent && proposedEvent.position !== null && (
+                {droppedPosition !== null && (
                     <div
                         className={`event proposed-event ${isCorrect !== null ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
-                        style={{ left: `${proposedEvent.position}px` }}
+                        style={{
+                            left: `${droppedPosition}px`,
+                            backgroundImage: `url(${proposedEvent.Image})`
+                        }}
                     >
-                        {proposedEvent.text}
+                        {proposedEvent.Événement}
                     </div>
                 )}
             </div>
-            {proposedEvent && proposedEvent.position === null && (
-                <div
-                    className="proposed-event-container"
-                    draggable
-                    onDragStart={(e) => handleDragStart(e, proposedEvent.id)}
-                >
-                    <div className="event proposed-event">
-                        {proposedEvent.text}
+            {proposedEvent && droppedPosition === null && (
+                <div className="proposed-event-container" draggable>
+                    <div className="event proposed-event" style={{ backgroundImage: `url(${proposedEvent.Image})` }}>
+                        {proposedEvent.Événement}
                     </div>
                 </div>
             )}

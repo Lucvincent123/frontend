@@ -1,35 +1,54 @@
+/* Assurez-vous que le conteneur de la frise a une hauteur fixe et un débordement auto */
+.timeline-container {
+    height: 450px; /* Ajustez la hauteur selon vos besoins */
+    overflow-x: auto; /* Active le défilement vertical */
+    overflow-y: hidden;
+    position: relative; 
+}
+
 #timeline {
-  width: 80%;
-  margin: 50px auto;
+  width: 100%;
+  margin: 125px auto;
   position: relative;
-  height: 100px;
-  background: linear-gradient(to right, transparent, #f9f9f9 25%, #f9f9f9 75%, transparent);
-  border: 2px solid #000;
-  border-radius: 8px;
-  overflow: hidden;
+  height: 100px; /* Hauteur réduite pour le trait */
+  border: none; /* Supprime la bordure */
+  background-color: rgb(229, 229, 229);/* Supprime l'arrière-plan */
+  border-radius: 10px; /* Coins arrondis */
+  overflow: visible; /* Assurez-vous que les éléments peuvent dépasser */
 }
 
 #timeline::before {
   content: '';
   position: absolute;
   top: 50%;
-  right: -10px;
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent transparent transparent #000;
+  left: 0;
+  right: 0;
+  height: 2px; /* Épaisseur du trait */
+  background-color: #000; /* Couleur du trait */
   transform: translateY(-50%);
 }
 
 .event {
-  position: absolute;
-  background-color: #007BFF;
+  position:absolute;
   color: white;
-  padding: 15px;
+  padding: 15px; /* Ajuste la taille de la carte */
   border-radius: 5px;
   cursor: move;
   user-select: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, background-color 0.5s;
+  background-size: cover;
+  background-position: center;
+  white-space: nowrap; /* Empêche le texte de passer à la ligne */
+  text-shadow: -1px -1px 0 black,
+               1px -1px 0 black,
+              -1px  1px 0 black,
+               1px  1px 0 black;
+  max-width: 150px; /* Ajuste cette valeur selon tes besoins */
+  word-wrap: break-word; /* Permet au texte de passer à la ligne */
+  overflow: hidden; /* Empêche le texte de déborder */
+  text-align: center; /* Centre le texte dans la carte */
+  white-space: normal; /* Autorise le retour à la ligne */
 }
 
 .event:hover {
@@ -38,7 +57,6 @@
 
 .fixed-event {
   cursor: default;
-  background-color: #28a745;
 }
 
 .fixed-event:hover {
@@ -46,32 +64,89 @@
 }
 
 .proposed-event-container {
-  margin-top: 20px;
+  position: relative;
+  margin-top: -40px;
   text-align: center;
 }
 
 .proposed-event {
+  position: relative;
   display: inline-block;
-  background-color: #ffc107;
+  border: 3px solid #ffc107;
   cursor: grab;
 }
 
 .proposed-event.correct {
-  animation: correctAnimation 1s;
+  animation: correctAnimation 1s forwards;
 }
 
 .proposed-event.incorrect {
-  animation: incorrectAnimation 1s;
+  animation: incorrectAnimation 1s forwards;
 }
 
 @keyframes correctAnimation {
-  0% { background-color: #ffc107; }
-  50% { background-color: #28a745; }
-  100% { background-color: #ffc107; }
+  0% { border: 5px solid #ffc107; }
+  100% { border: 5px solid #28a745; }
 }
 
 @keyframes incorrectAnimation {
-  0% { background-color: #ffc107; }
-  50% { background-color: #dc3545; }
-  100% { background-color: #ffc107; }
+  0% { border: 5px solid #ffc107; }
+  100% { border: 5px solid #dc3545; }
 }
+
+/* Styles pour les cartes au-dessus et en dessous */
+.event.above {
+  top: -2px; /* Ajustez cette valeur pour positionner correctement les cartes au-dessus */
+  transform: translateY(-100%);
+  overflow: visible;
+}
+
+.event.below {
+  top: 100px; /* Ajustez cette valeur pour positionner correctement les cartes en dessous */
+  transform: translateY(0);
+  overflow:visible;
+}
+
+/* Trait vertical reliant l'événement à la frise */
+.event-connector {
+  position: absolute;
+  left: 50%;
+  bottom: -50px; /* Ajuste cette valeur pour descendre jusqu'à la frise */
+  width: 2px;
+  height: 50px; /* Ajuste la hauteur en fonction de la distance entre l'événement et la frise */
+  background-color: rgb(0, 0, 0);
+  transform: translateX(-50%);
+}
+
+/* Point d'ancrage sur la frise */
+.event-dot {
+  position: absolute;
+  left: 50%;
+  bottom: -50px; /* Ajuste pour qu'il soit sur la frise */
+  width: 10px;
+  height: 10px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+/* Événements au-dessus de la frise */
+.event.above .event-connector {
+  bottom: -50px; /* Connecteur va vers le bas */
+  height: 50px; /* Ajuste la hauteur */
+}
+
+.event.above .event-dot {
+  bottom: -50px; /* Le point est sous l'événement */
+}
+
+/* Événements en dessous de la frise */
+.event.below .event-connector {
+  top: -50px; /* Connecteur va vers le haut */
+  height: 50px; /* Ajuste la hauteur */
+}
+
+.event.below .event-dot {
+  top: -50px; /* Le point est au-dessus de l'événement */
+}
+
