@@ -36,56 +36,56 @@ function App() {
   return (
     
     <div>
-    <h1>Home page</h1>
+    <h1>Choose a category :</h1>
       <CustomButton
         text="Random"
-        imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={2}
+        imageUrl="https://images.photowall.com/products/47903/world-map-detailed-without-roads.jpg?h=699&q=85"
+        action={10}
       />
       <CustomButton
         text="Vietnam"
         imageUrl="https://www.worldatlas.com/upload/a6/4c/2e/vn-flag.jpg"
+        action={0}
+      />
+      <CustomButton
+        text="Science"
+        imageUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn6LEDKkakNSqbYbUWuFbxeX5-JmxSQAr-rA&s"
         action={1}
       />
       <CustomButton
-        text="Sujet1"
-        imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
+        text="Histoire"
+        imageUrl="https://static.lpnt.fr/images/2012/07/03/la-liberte-guidant-le-peuple-delacroix_423221_660x287.jpg"
+        action={2}
+      />
+      <CustomButton
+        text="INSA"
+        imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Logo_INSA_Lyon_%282014%29.svg/2560px-Logo_INSA_Lyon_%282014%29.svg.png"
+        action={3}
+      />
+      <CustomButton
+        text="Sport"
+        imageUrl="https://www.calvados.fr/files/live/sites/calvados/files/documents/images/actualites/regard-des-jeunes-de-15-ans-PBCN2018-1140.jpg"
         action={4}
       />
       <CustomButton
-        text="Sujet2"
+        text="Sujet5"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
         action={5}
       />
       <CustomButton
-        text="Sujet3"
+        text="Sujet6"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
         action={6}
       />
       <CustomButton
-        text="Sujet6"
+        text="Sujet7"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
         action={7}
       />
       <CustomButton
-        text="Sujet7"
-        imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={8}
-      />
-      <CustomButton
         text="Sujet8"
         imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={9}
-      />
-      <CustomButton
-        text="Sujet9"
-        imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={10}
-      />
-      <CustomButton
-        text="Sujet10"
-        imageUrl="https://th.bing.com/th/id/OIP.asnc_8Y-ZNgLVM0thkfLAgHaE9?rs=1&pid=ImgDetMain"
-        action={11}
+        action={8}
       />
     </div>
   );
