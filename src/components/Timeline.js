@@ -10,7 +10,7 @@ const themeMapping = {
     "10": { name: "Random", image: "https://images.photowall.com/products/47903/world-map-detailed-without-roads.jpg?h=699&q=85" },
     "4": { name : "Sport", image: "https://www.calvados.fr/files/live/sites/calvados/files/documents/images/actualites/regard-des-jeunes-de-15-ans-PBCN2018-1140.jpg"}
   };
-
+ 
 const Timeline = () => {
     const [events, setEvents] = useState([]);
     const [eventQueue, setEventQueue] = useState([]);
@@ -20,10 +20,23 @@ const Timeline = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const action = params.get("action");
-
+    const [lives, setLives] = useState(3);
+    const [streak, setStreak] = useState(0);
+    const [maxStreak, setMaxStreak] = useState(0);
+    const getMaxStreakForTheme = (theme) => {
+        const savedStreaks = JSON.parse(localStorage.getItem("themeMaxStreaks") || "{}");
+        return savedStreaks[theme] || 0;
+    };
+    
+    const setMaxStreakForTheme = (theme, streak) => {
+        const savedStreaks = JSON.parse(localStorage.getItem("themeMaxStreaks") || "{}");
+        savedStreaks[theme] = streak;
+        localStorage.setItem("themeMaxStreaks", JSON.stringify(savedStreaks));
+    };
+    
     useEffect(() => {
         const themeData = themeMapping[action] || { name: "", image: "" };
-    
+        setMaxStreak(getMaxStreakForTheme(themeData.name));
         const fetchData = (url, theme = "") => {
             fetch(url)
                 .then(response => response.json())
@@ -115,7 +128,23 @@ const Timeline = () => {
                 }));
                 setEvents(updatedEvents);
                 setCurrentEventIndex(prev => prev + 1);
+                setStreak(prev => {
+                    const newStreak = prev + 1;
+                    setMaxStreak(prevMax => {
+                        if (newStreak > prevMax) {
+                            setMaxStreakForTheme(themeMapping[action]?.name, newStreak);
+                            return newStreak;
+                        }
+                        return prevMax;
+                    });
+                    return newStreak;
+                });
+                
+            } else {
+                setLives(prev => prev - 1);
+
             }
+
             setIsCorrect(null);
             setDroppedPosition(null);
         }, 1000);
@@ -124,6 +153,11 @@ const Timeline = () => {
     return (
         <div className="timeline-container">
             <h1 className="theme-title">{themeMapping[action]?.name}</h1>
+            <div className="stats-bar">
+                <div>❤️ Vies : {lives}</div>
+                <div>🔥 Streak : {streak}</div>
+                <div>🏆 Meilleur streak : {maxStreak}</div>
+            </div>
             <div id="timeline"
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
@@ -166,6 +200,14 @@ const Timeline = () => {
                     <div className="event proposed-event" style={{ backgroundImage: `url(${proposedEvent.Image})` }}>
                         {proposedEvent.Événement}
                     </div>
+                </div>
+            )}
+
+{lives === 0 && (
+                <div className="game-over">
+                    <h2>💀 Fin de la partie !</h2>
+                    <p>Votre meilleur streak : {maxStreak}</p>
+                    <button onClick={() => window.location.reload()}>🔁 Rejouer</button>
                 </div>
             )}
         </div>

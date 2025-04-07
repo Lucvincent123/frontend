@@ -1,0 +1,9 @@
+/* Réduit la marge inférieure du titre */
+h1 {
+    margin-bottom: 0px; /* Ajuste cette valeur selon tes besoins */
+}
+
+/* Réduit la marge supérieure du composant Timeline */
+.timeline-container {
+    margin-top: 0; /* Réduit ou supprime la marge supérieure */
+}
