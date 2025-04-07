@@ -3,7 +3,7 @@ import { useFormStatus } from "react-dom";
 import styles from "./AddCardForm.module.css"
 import { useState } from "react";
 
-export default function Form({ setAdd }) {
+export default function Form({ setAdd, refresh, setRefresh }) {
     const { pending } = useFormStatus();
     const [event, setEvent] = useState("")
     const [year, setYear] = useState("")
@@ -31,6 +31,7 @@ export default function Form({ setAdd }) {
                 const data = await response.json()
                 if (data.success) {
                     setMessage("New event created")
+                    setRefresh(!refresh);
                     return;
                 }
                 setMessage(data.message)
@@ -54,14 +55,14 @@ export default function Form({ setAdd }) {
 
             <label className={styles.label}>Category</label>
             <input type="text" className={styles.input} placeholder="Category" onChange={(e) => setCategory(e.target.value)} value={category}/>
-            <button onClick={() => setCategories(categories.concat(Array(category)))}>+</button>
+            <button className={styles.submit} onClick={() => setCategories(categories.concat(Array(category)))}>+</button>
             {categories.map((category) => {
                 return <div>{category}</div>
             })}
-            <button type="submit" disabled={pending} onClick={submit}>
+            <button className={styles.submit} type="submit" disabled={pending} onClick={submit}>
             {pending ? "Submitting..." : "Submit"}
             </button>
-            <button onClick={() => setAdd(false)}>Cancel</button>
+            <button className={styles.submit} onClick={() => setAdd(false)}>Cancel</button>
             <div>{message}</div>
         </div>
     );

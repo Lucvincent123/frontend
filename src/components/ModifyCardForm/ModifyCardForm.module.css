@@ -1,5 +1,5 @@
 .addForm {
-    margin-top: 100px;
+    margin-top: -60px;
     margin-left: 200px;
     background-color: lightsalmon;
     width: 500px;
@@ -13,6 +13,7 @@
 
 .label {
     display: block;
+    padding: 10px;
 }
 
 .inputText {
@@ -21,4 +22,14 @@
 
 .category {
     cursor: pointer;
+}
+
+.input {
+    padding: 5px;
+    font-size: 20px;
+}
+
+.submit {
+    padding: 10px;
+    margin: 10px;
 }

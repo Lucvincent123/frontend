@@ -13,30 +13,70 @@
 
 .cardContainer {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     row-gap: 10px;
     column-gap: 10px;
 }
 
 
 .image {
-    width: 200px;
-    height: 100px;
-    
+    width: 150px;
+    height: 80px;
+}
+
+.cardSpace {
+    cursor: pointer;
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    min-height: 250px;
+    align-items: center;
+    justify-content: center;
     border: 5px solid black;
     border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.5s;
-    transition: margin 0.5s;
-
 }
 
-.enabled:hover {
-    transform: scale(1.2);
-    margin: 20px;
+.enabled:hover .card{
     border: 5px solid lightsalmon;
 }
 
+.navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    height: 80%;
+    margin: 10px;
+    width: 100px;
+    background-color: lightsalmon;
+    border: none;
+    border-radius: 10px;
+    color : white;
+}
+
+.button:hover {
+    background-color: salmon;
+}
+
+.button:active {
+    opacity: 0.5;
+}
+
+.event {
+    font-size: large;
+    padding-bottom: 5px;
+}
+
+.separate {
+    width: 150px;
+}
