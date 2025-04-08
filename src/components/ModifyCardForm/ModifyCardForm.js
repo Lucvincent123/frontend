@@ -23,7 +23,7 @@ import { useEffect, useState } from "react";
 //     return message;
 // }
 
-export default function Form({ setId, id }) {
+export default function Form({ setId, id, refresh, setRefresh}) {
     const { pending } = useFormStatus();
     const [event, setEvent] = useState("")
     const [year, setYear] = useState("")
@@ -75,6 +75,7 @@ export default function Form({ setId, id }) {
                 console.log(data)
                 if (data.success) {
                     setMessage("Event updated")
+                    setRefresh(!refresh)
                     return;
                 }
                 setMessage(data.message)
@@ -94,7 +95,10 @@ export default function Form({ setId, id }) {
                       },
             })
             const data = await response.json()
-            if (data.success) return setMessage("Event deleted")
+            if (data.success) {
+                setRefresh(!refresh)
+                return setMessage("Event deleted")
+            }
             setMessage(data.message)
         } catch (error) {
             setMessage(error.message)
@@ -114,17 +118,17 @@ export default function Form({ setId, id }) {
 
             <label className={styles.label}>Category</label>
             <input type="text" className={styles.input} placeholder="Category" onChange={(e) => setCategory(e.target.value)} value={category}/>
-            <button onClick={() => setCategories(categories.concat(Array(category)))}>+</button>
+            <button className={styles.submit} onClick={() => setCategories(categories.concat(Array(category)))}>+</button>
             {categories.map((category, index) => {
                 return <div className={styles.category} onClick={() => setCategories(categories.filter((item => item !== category)))}>{category}</div>
             })}
-            <button type="submit" disabled={pending} onClick={modify}>
+            <button className={styles.submit} type="submit" disabled={pending} onClick={modify}>
             {pending ? "Updating..." : "Update"}
             </button>
-            <button type="submit" disabled={pending} onClick={remove}>
+            <button className={styles.submit} type="submit" disabled={pending} onClick={remove}>
             {pending ? "Deleting..." : "Delete"}
             </button>
-            <button onClick={() => setId("")}>Cancel</button>
+            <button className={styles.submit} onClick={() => setId("")}>Cancel</button>
             <div>{message}</div>
         </div>
     );
