@@ -5,7 +5,6 @@ import Timeline from './Timeline';
 const HomePage = () => {
     return (
         <div>
-            <h1>Play :</h1>
             <Timeline />
         </div>
     );

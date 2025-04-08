@@ -14,10 +14,10 @@ export default function NavBar() {
                             <Link to="/categories" className="hover:underline">Categories</Link>
                         </li>
                         <li>
-                            <Link to="/about" className="hover:underline">About us</Link>
+                            <Link to="/admin" className="hover:underline">Admin</Link>
                         </li>
                         <li>
-                            <Link to="/contact" className="hover:underline">Contact</Link>
+                            <Link to="/about" className="hover:underline">About us</Link>
                         </li>
                     </ul>
                 </nav>

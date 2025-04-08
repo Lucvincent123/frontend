@@ -10,7 +10,7 @@
   width: 100%;
   margin: 125px auto;
   position: relative;
-  height: 100px; /* Hauteur réduite pour le trait */
+  height: 200px; /* Hauteur réduite pour le trait */
   border: none; /* Supprime la bordure */
   background-color: rgb(229, 229, 229);/* Supprime l'arrière-plan */
   border-radius: 10px; /* Coins arrondis */
@@ -102,7 +102,7 @@
 }
 
 .event.below {
-  top: 100px; /* Ajustez cette valeur pour positionner correctement les cartes en dessous */
+  top: 200px; /* Ajustez cette valeur pour positionner correctement les cartes en dessous */
   transform: translateY(0);
   overflow:visible;
 }
@@ -132,22 +132,22 @@
 
 /* Événements au-dessus de la frise */
 .event.above .event-connector {
-  bottom: -50px; /* Connecteur va vers le bas */
-  height: 50px; /* Ajuste la hauteur */
+  bottom: -100px; /* Connecteur va vers le bas */
+  height: 100px; /* Ajuste la hauteur */
 }
 
 .event.above .event-dot {
-  bottom: -50px; /* Le point est sous l'événement */
+  bottom: -101px; /* Le point est sous l'événement */
 }
 
 /* Événements en dessous de la frise */
 .event.below .event-connector {
-  top: -50px; /* Connecteur va vers le haut */
-  height: 50px; /* Ajuste la hauteur */
+  top: -100px; /* Connecteur va vers le haut */
+  height: 100px; /* Ajuste la hauteur */
 }
 
 .event.below .event-dot {
-  top: -50px; /* Le point est au-dessus de l'événement */
+  top: -100px; /* Le point est au-dessus de l'événement */
 }
 
 .theme-title {
@@ -166,7 +166,6 @@
   padding: 10px;
   font-weight: bold;
   font-size: 18px;
-  border-bottom: 40px solid white;
 }
 
 .game-over {

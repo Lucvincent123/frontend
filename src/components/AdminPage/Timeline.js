@@ -6,14 +6,14 @@ const themeMapping = {
     "0": { name: "Vietnam", image: "https://www.worldatlas.com/upload/a6/4c/2e/vn-flag.jpg" },
     "1": { name: "Science", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn6LEDKkakNSqbYbUWuFbxeX5-JmxSQAr-rA&s" },
     "2": { name: "Histoire", image: "https://static.lpnt.fr/images/2012/07/03/la-liberte-guidant-le-peuple-delacroix_423221_660x287.jpg" },
-    "3": { name: "INSA", image: "https://www.insa-lyon.fr/sites/www.insa-lyon.fr/files/108_63b6334.jpg" },
+    "3": { name: "INSA", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Logo_INSA_Lyon_%282014%29.svg/2560px-Logo_INSA_Lyon_%282014%29.svg.png" },
     "10": { name: "Random", image: "https://images.photowall.com/products/47903/world-map-detailed-without-roads.jpg?h=699&q=85" },
-    "4": { name : "Sport", image: "https://www.calvados.fr/files/live/sites/calvados/files/documents/images/actualites/regard-des-jeunes-de-15-ans-PBCN2018-1140.jpg" },
-    "5": { name: "Contemporain", image: "https://us.123rf.com/450wm/pabkov/pabkov1507/pabkov150700397/42366943-tokyo-japon-21-mars-quartier-de-shibuya-le-21-mars-2015-%C3%A0-tokyo-au-japon-le-quartier-est-un.jpg" },
-    "6": { name: "Moyen-Âge", image: "https://i0.wp.com/www.histoire-normandie.fr/wp-content/uploads/2015/06/6035943537_1142331228_o.jpg?resize=530%2C426" },
-    "7": { name: "Antiquité", image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Raphael_School_of_Athens.jpg" },
-    "8": { name: "Préhistoire", image: "https://www.domainedulac-dordogne.com/domainedulac/wp-content/uploads/2018/03/LASCAUX.jpg" },
-    "9": { name: "Moderne", image: "https://www.francebleu.fr/s3/cruiser-production/2018/06/4464e217-892f-4b79-8bea-099e2c146667/1200x680_gettyimages-526742236.jpg" },
+    "4": { name : "Sport", image: "https://www.calvados.fr/files/live/sites/calvados/files/documents/images/actualites/regard-des-jeunes-de-15-ans-PBCN2018-1140.jpg"},
+    "5": { name: "Contemporain", image: "https://www.ouest-france.fr/resizer/2g0r1v3x4k7X5bq6a8c9h2d4f0I=/arc-16:9/filters:format(webp)/cloudfront-eu-central-1.images.arcpublishing.com/ouest-france/3QKZ5J6G7ZB5RZ3Y2F5V3QKZ5I.jpg" },
+    "6": { name: "Moyen-Âge", image: "https://www.ouest-france.fr/resizer/2g0r1v3x4k7X5bq6a8c9h2d4f0I=/arc-16:9/filters:format(webp)/cloudfront-eu-central-1.images.arcpublishing.com/ouest-france/3QKZ5J6G7ZB5RZ3Y2F5V3QKZ5I.jpg" },
+    "7": { name: "Antiquité", image: "https://www.ouest-france.fr/resizer/2g0r1v3x4k7X5bq6a8c9h2d4f0I=/arc-16:9/filters:format(webp)/cloudfront-eu-central-1.images.arcpublishing.com/ouest-france/3QKZ5J6G7ZB5RZ3Y2F5V3QKZ5I.jpg" },
+    "8": { name: "Préhistoire", image: "https://www.ouest-france.fr/resizer/2g0r1v3x4k7X5bq6a8c9h2d4f0I=/arc-16:9/filters:format(webp)/cloudfront-eu-central-1.images.arcpublishing.com/ouest-france/3QKZ5J6G7ZB5RZ3Y2F5V3QKZ5I.jpg" },
+    "9": { name: "Moderne", image: "https://www.ouest-france.fr/resizer/2g0r1v3x4k7X5bq6a8c9h2d4f0I=/arc-16:9/filters:format(webp)/cloudfront-eu-central-1.images.arcpublishing.com/ouest-france/3QKZ5J6G7ZB5RZ3Y2F5V3QKZ5I.jpg" },
 };
 
 
@@ -25,7 +25,7 @@ const Timeline = () => {
     const [isCorrect, setIsCorrect] = useState(null);
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const action = params.get("action") || "10"; 
+    const action = params.get("action");
     const [lives, setLives] = useState(3);
     const [streak, setStreak] = useState(0);
     const [maxStreak, setMaxStreak] = useState(0);

@@ -1,21 +1,44 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // <-- Import de useNavigate
 import '../styles/Login.css';
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const navigate = useNavigate(); // <-- Initialiser le hook
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:5000/api/users")
-    console.log(response)
-    const data = await response.json()
-    console.log(data.data)
-    if (username === 'user' && password === 'password') {
-      onLogin();
-    } else {
-      setError('Nom d\'utilisateur ou mot de passe incorrect.');
+    setError('');
+    setSuccess('');
+
+    try {
+      const response = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.token) {
+        localStorage.setItem("token", data.token); // Stocker le token dans le localStorage
+        setSuccess("Connexion réussie !");
+        onLogin(); // met à jour isAuthenticated dans App
+        setTimeout(() => {
+          navigate('/admin'); // <-- Redirige vers /admin après 1s
+        }, 1000);
+      } else {
+        setError(data.message || "Erreur de connexion");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la tentative de connexion :", error);
+      setError("Erreur serveur");
     }
   };
 
@@ -42,6 +65,7 @@ function Login({ onLogin }) {
           />
         </div>
         {error && <p className="error">{error}</p>}
+        {success && <p className="success">{success}</p>}
         <button type="submit">Se connecter</button>
       </form>
     </div>

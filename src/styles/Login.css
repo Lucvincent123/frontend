@@ -2,9 +2,11 @@
   max-width: 400px;
   margin: auto;
   padding: 20px;
+  margin-top: 50px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
 }
 
 .Login h2 {
@@ -30,7 +32,7 @@
 .Login button {
   width: 100%;
   padding: 10px;
-  background-color: #007BFF;
+  background-color: #424447;
   color: white;
   border: none;
   border-radius: 5px;
@@ -38,10 +40,11 @@
 }
 
 .Login button:hover {
-  background-color: #0056b3;
+  background-color: #222223;
 }
 
 .Login .error {
   color: red;
   text-align: center;
 }
+
