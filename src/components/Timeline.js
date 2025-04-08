@@ -2,33 +2,21 @@ import React, { useState, useEffect } from 'react';
 import '../styles/Timeline.css';
 import { useLocation } from "react-router-dom";
 
-const themeMapping = {
-    "0": { name: "Vietnam", image: "https://www.worldatlas.com/upload/a6/4c/2e/vn-flag.jpg" },
-    "1": { name: "Science", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn6LEDKkakNSqbYbUWuFbxeX5-JmxSQAr-rA&s" },
-    "2": { name: "Histoire", image: "https://static.lpnt.fr/images/2012/07/03/la-liberte-guidant-le-peuple-delacroix_423221_660x287.jpg" },
-    "3": { name: "INSA", image: "https://www.insa-lyon.fr/sites/www.insa-lyon.fr/files/108_63b6334.jpg" },
-    "10": { name: "Random", image: "https://images.photowall.com/products/47903/world-map-detailed-without-roads.jpg?h=699&q=85" },
-    "4": { name : "Sport", image: "https://www.calvados.fr/files/live/sites/calvados/files/documents/images/actualites/regard-des-jeunes-de-15-ans-PBCN2018-1140.jpg" },
-    "5": { name: "Contemporain", image: "https://us.123rf.com/450wm/pabkov/pabkov1507/pabkov150700397/42366943-tokyo-japon-21-mars-quartier-de-shibuya-le-21-mars-2015-%C3%A0-tokyo-au-japon-le-quartier-est-un.jpg" },
-    "6": { name: "Moyen-Âge", image: "https://i0.wp.com/www.histoire-normandie.fr/wp-content/uploads/2015/06/6035943537_1142331228_o.jpg?resize=530%2C426" },
-    "7": { name: "Antiquité", image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Raphael_School_of_Athens.jpg" },
-    "8": { name: "Préhistoire", image: "https://www.domainedulac-dordogne.com/domainedulac/wp-content/uploads/2018/03/LASCAUX.jpg" },
-    "9": { name: "Moderne", image: "https://www.francebleu.fr/s3/cruiser-production/2018/06/4464e217-892f-4b79-8bea-099e2c146667/1200x680_gettyimages-526742236.jpg" },
-};
-
-
 const Timeline = () => {
     const [events, setEvents] = useState([]);
     const [eventQueue, setEventQueue] = useState([]);
     const [currentEventIndex, setCurrentEventIndex] = useState(0);
     const [droppedPosition, setDroppedPosition] = useState(null);
     const [isCorrect, setIsCorrect] = useState(null);
-    const location = useLocation();
-    const params = new URLSearchParams(location.search);
-    const action = params.get("action") || "10"; 
+    const [themeData, setThemeData] = useState({ name: '', image: '' });
     const [lives, setLives] = useState(3);
     const [streak, setStreak] = useState(0);
     const [maxStreak, setMaxStreak] = useState(0);
+    const [isWin, setIsWin] = useState(false);
+
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const action = params.get("action") || "10"; 
 
     const getMaxStreakForTheme = (theme) => {
         const savedStreaks = JSON.parse(localStorage.getItem("themeMaxStreaks") || "{}");
@@ -41,10 +29,22 @@ const Timeline = () => {
         localStorage.setItem("themeMaxStreaks", JSON.stringify(savedStreaks));
     };
 
+    // Chargement des données du thème
     useEffect(() => {
-        const themeData = themeMapping[action] || { name: "", image: "" };
-        setMaxStreak(getMaxStreakForTheme(themeData.name));
+        fetch(`http://localhost:5000/api/categories`)
+            .then(res => res.json())
+            .then(data => {
+                const theme = data.find(cat => cat.action.toString() === action);
+                if (theme) {
+                    setThemeData({ name: theme.text, image: theme.imageUrl });
+                    setMaxStreak(getMaxStreakForTheme(theme.text));
+                }
+            })
+            .catch(err => console.error("Erreur de chargement du thème :", err));
+    }, [action]);
 
+    // Chargement des événements
+    useEffect(() => {
         const fetchData = (url, theme = "") => {
             fetch(url)
                 .then(response => response.json())
@@ -66,7 +66,6 @@ const Timeline = () => {
 
                     const shuffledEvents = [...data].sort(() => Math.random() - 0.5);
                     const initialEvent = shuffledEvents.shift();
-
                     if (!initialEvent) return;
 
                     initialEvent.fixed = true;
@@ -118,15 +117,18 @@ const Timeline = () => {
             default:
                 fetchData("http://localhost:5000/api/events", "Random");
         }
-    }, [action]);
+    }, [action, themeData.name]);
 
     const proposedEvent = eventQueue[currentEventIndex] || null;
 
     const handleDrop = (e) => {
         e.preventDefault();
+        if (lives === 0 || isWin) return;
         if (!proposedEvent) return;
 
-        const newPosition = e.clientX;
+        const draggedElement = document.querySelector(".proposed-event");
+        const elementWidth = draggedElement?.offsetWidth || 0;
+        const newPosition = e.clientX - elementWidth / 2;
         setDroppedPosition(newPosition);
 
         const sortedEvents = [...events, { ...proposedEvent, position: newPosition }].sort((a, b) => a.position - b.position);
@@ -154,13 +156,18 @@ const Timeline = () => {
                 });
 
                 setEvents(updatedEvents);
-                setCurrentEventIndex(prev => prev + 1);
-
+                setCurrentEventIndex(prev => {
+                    const nextIndex = prev + 1;
+                    if (nextIndex >= eventQueue.length) {
+                        setIsWin(true);
+                    }
+                    return nextIndex;
+                });
                 setStreak(prev => {
                     const newStreak = prev + 1;
                     setMaxStreak(prevMax => {
                         if (newStreak > prevMax) {
-                            setMaxStreakForTheme(themeMapping[action]?.name, newStreak);
+                            setMaxStreakForTheme(themeData.name, newStreak);
                             return newStreak;
                         }
                         return prevMax;
@@ -178,7 +185,7 @@ const Timeline = () => {
 
     return (
         <div className="timeline-container">
-            <h1 className="theme-title">{themeMapping[action]?.name}</h1>
+            <h1 className="theme-title">{themeData.name}</h1>
             <div className="stats-bar">
                 <div>❤️ Vies : {lives}</div>
                 <div>🔥 Streak : {streak}</div>
@@ -189,7 +196,7 @@ const Timeline = () => {
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
                 style={{
-                    backgroundImage: `url(${themeMapping[action]?.image})`,
+                    backgroundImage: `url(${themeData.image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                 }}
@@ -208,7 +215,7 @@ const Timeline = () => {
                         <div className="event-dot"></div>
                     </div>
                 ))}
-                {droppedPosition !== null && (
+                {droppedPosition !== null && proposedEvent && (
                     <div
                         className={`event proposed-event ${isCorrect !== null ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
                         style={{
@@ -221,7 +228,7 @@ const Timeline = () => {
                 )}
             </div>
 
-            {proposedEvent && droppedPosition === null && (
+            {proposedEvent && droppedPosition === null && lives > 0 && !isWin && (
                 <div className="proposed-event-container" draggable>
                     <div className="event proposed-event" style={{ backgroundImage: `url(${proposedEvent.Image})` }}>
                         {proposedEvent.Événement}
@@ -234,6 +241,13 @@ const Timeline = () => {
                     <h2>💀 Fin de la partie !</h2>
                     <p>Votre meilleur streak : {maxStreak}</p>
                     <button onClick={() => window.location.reload()}>🔁 Rejouer</button>
+                </div>
+            )}
+            {isWin && (
+                <div className="game-win">
+                    <h2>👑 Bravo ! Vous avez terminé le thème avec succès !</h2>
+                    <p>Votre meilleur streak : {maxStreak}</p>
+                    <button onClick={() => window.location.reload()}>Rejouer</button>
                 </div>
             )}
         </div>

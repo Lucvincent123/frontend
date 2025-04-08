@@ -85,13 +85,29 @@
 }
 
 @keyframes correctAnimation {
-  0% { border: 5px solid #ffc107; }
-  100% { border: 5px solid #28a745; }
+  0% {
+    border: 5px solid #ffc107;
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.2);
+  }
+  100% {
+    border: 5px solid #28a745;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(40, 167, 69, 0.5);
+  }
 }
 
 @keyframes incorrectAnimation {
-  0% { border: 5px solid #ffc107; }
-  100% { border: 5px solid #dc3545; }
+  0% {
+    border: 5px solid #ffc107;
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.2);
+  }
+  100% {
+    border: 5px solid #dc3545;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(220, 53, 69, 0.5);
+  }
 }
 
 /* Styles pour les cartes au-dessus et en dessous */
@@ -163,6 +179,7 @@
   justify-content: space-around;
   background: rgba(0,0,0,0.6);
   color: white;
+  margin-top: 2px;
   padding: 10px;
   font-weight: bold;
   font-size: 18px;
@@ -179,4 +196,45 @@
   box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
   text-align: center;
   z-index: 1000;
+}
+
+.game-win {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #d4edda; /* vert clair pour succès */
+  padding: 30px 50px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 1000;
+  color: #155724; /* texte vert foncé */
+  border: 2px solid #c3e6cb;
+}
+
+.game-win h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.game-win p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.game-win button {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.game-win button:hover {
+  background-color: #218838;
 }
