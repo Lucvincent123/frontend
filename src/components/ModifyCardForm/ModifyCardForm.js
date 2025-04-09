@@ -31,6 +31,7 @@ export default function Form({ setId, id, refresh, setRefresh}) {
     const [category, setCategory] = useState("")
     const [categories, setCategories] = useState([])
     const [message, setMessage] = useState("")
+    const [themes, setThemes] = useState(null)
 
     useEffect(() => {
         const getEvent = async() => {
@@ -52,6 +53,13 @@ export default function Form({ setId, id, refresh, setRefresh}) {
 
         getEvent()
     }, [id])
+
+    useEffect(() => {
+            fetch("http://localhost:5000/api/categories")
+            .then(response => response.json())
+            .then(data => setThemes(data))
+            .catch(error => console.log)
+    }, []);
 
     const modify = async() => {
         if (event !== "" && year !== "" && img !== "" && categories.length > 0) {
@@ -117,7 +125,10 @@ export default function Form({ setId, id, refresh, setRefresh}) {
             <input type="text" className={styles.input} placeholder="Image url" onChange={(e) => setImg(e.target.value)} value={img}/>
 
             <label className={styles.label}>Category</label>
-            <input type="text" className={styles.input} placeholder="Category" onChange={(e) => setCategory(e.target.value)} value={category}/>
+            <select id="theme" onChange={(e) => setCategory(e.target.value)}>
+                <option value="">--Please choose an option--</option>
+                {themes && themes.map((theme) => <option value={theme.text}>{theme.text}</option>)}
+            </select>
             <button className={styles.submit} onClick={() => setCategories(categories.concat(Array(category)))}>+</button>
             {categories.map((category, index) => {
                 return <div className={styles.category} onClick={() => setCategories(categories.filter((item => item !== category)))}>{category}</div>

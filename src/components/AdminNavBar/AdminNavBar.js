@@ -23,7 +23,7 @@ export default function AdminNavBar({ setMain, isActive, setIsActive }) {
             ></i>
 
             <AdminNavBarComponent text="Cards" setMain={setMain}/>
-            <AdminNavBarComponent text="Theme" setMain={setMain}/>
+            <AdminNavBarComponent text="Themes" setMain={setMain}/>
 
         </div>
     )

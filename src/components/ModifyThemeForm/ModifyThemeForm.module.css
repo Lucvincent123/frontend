@@ -1,0 +1,35 @@
+.addForm {
+    margin-top: -60px;
+    margin-left: 200px;
+    background-color: orange;
+    width: 500px;
+    min-height: 300px;
+    border: 2px solid black;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.label {
+    display: block;
+    padding: 10px;
+}
+
+.inputText {
+    display: block;
+}
+
+.category {
+    cursor: pointer;
+}
+
+.input {
+    padding: 5px;
+    font-size: 20px;
+}
+
+.submit {
+    padding: 10px;
+    margin: 10px;
+}

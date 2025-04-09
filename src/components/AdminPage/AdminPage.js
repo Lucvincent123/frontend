@@ -2,6 +2,7 @@ import styles from "./AdminPage.module.css"
 import NavBar from "../AdminNavBar/AdminNavBar.js"
 import { useState } from "react"
 import CardDisplay from "../CardDisplay/CardDisplay.js"
+import ThemeDisplay from "../ThemeDisplay/ThemeDisplay.js"
 
 export default function AdminPage() {
     const [main, setMain] = useState("Cards")
@@ -16,6 +17,7 @@ export default function AdminPage() {
         <div className={styles.container}>
             <NavBar setMain={setMain} isActive={isActive} setIsActive={setIsActive}/>
             { main === "Cards" && <CardDisplay isActive={isActive}/>}
+            { main === "Themes" && <ThemeDisplay isActive={isActive}/>}
         </div>
     )
 }

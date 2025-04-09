@@ -1,0 +1,30 @@
+.addForm {
+    margin-top: -60px;
+    margin-left: 200px;
+    background-color: lightsalmon;
+    width: 500px;
+    border: 2px solid black;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.label {
+    display: block;
+    padding: 10px;
+}
+
+.inputText {
+    display: block;
+}
+
+.input {
+    padding: 5px;
+    font-size: 20px;
+}
+
+.submit {
+    padding: 10px;
+    margin: 10px;
+}
