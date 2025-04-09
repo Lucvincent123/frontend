@@ -9,7 +9,7 @@ function CustomButton({ text, action, imageUrl }) {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     width: '350px',
-    height: '200px',
+    height: '150px',
     border: 'none',
     borderRadius: '10px',
     color: 'white',

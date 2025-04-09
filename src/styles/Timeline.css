@@ -1,6 +1,6 @@
 /* Assurez-vous que le conteneur de la frise a une hauteur fixe et un débordement auto */
 .timeline-container {
-    height: 700px; /* Ajustez la hauteur selon vos besoins */
+    height: 600px; /* Ajustez la hauteur selon vos besoins */
     overflow-x: auto; /* Active le défilement vertical */
     overflow-y: hidden;
     position: relative; 
@@ -65,7 +65,7 @@
 
 .proposed-event-container {
   position: relative;
-  margin-top: -40px;
+  margin-top: -65px;
   text-align: center;
 }
 
@@ -167,6 +167,7 @@
 }
 
 .theme-title {
+  margin-top: -6px;
   text-align: center;
   font-size: 30px;
   font-weight: bold;

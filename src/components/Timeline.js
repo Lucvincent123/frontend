@@ -62,7 +62,7 @@ const Timeline = () => {
                         event.Catégories.includes("Histoire") ||
                         event.Catégories.includes("Sport")
                     );
-                } else {
+                } else if (themeData.name !== "INSA") {
                     filteredData = data.filter(event =>
                         event.Catégories.includes(themeData.name)
                     );
