@@ -45,79 +45,49 @@ const Timeline = () => {
 
     // Chargement des événements
     useEffect(() => {
-        const fetchData = (url, theme = "") => {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (theme === "Random") {
-                        data = data.filter(evenement =>
-                            evenement.Catégories.includes("Science") ||
-                            evenement.Catégories.includes("Histoire") ||
-                            evenement.Catégories.includes("Sport")
-                        );
-                    } else if (theme !== "") {
-                        data = data.filter(evenement => evenement.Catégories.includes(theme));
-                    }
-
-                    if (data.length === 0) {
-                        console.warn("Aucun événement récupéré !");
-                        return;
-                    }
-
-                    const shuffledEvents = [...data].sort(() => Math.random() - 0.5);
-                    const initialEvent = shuffledEvents.shift();
-                    if (!initialEvent) return;
-
-                    initialEvent.fixed = true;
-                    initialEvent.position = 500;
-                    initialEvent.className = "above";
-
-                    setEvents([initialEvent]);
-                    setEventQueue(shuffledEvents);
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la récupération des événements :', error);
-                });
-        };
-
-        switch (action) {
-            case "1":
-                fetchData("http://localhost:5000/api/events", "Science");
-                break;
-            case "2":
-                fetchData("http://localhost:5000/api/events", "Histoire");
-                break;
-            case "0":
-                fetchData("http://localhost:5000/api/events", "Vietnam");
-                break;
-            case "3":
-                fetchData("http://localhost:5000/api/events_insa");
-                break;
-            case "10":
-                fetchData("http://localhost:5000/api/events", "Random");
-                break;
-            case "4":
-                fetchData("http://localhost:5000/api/events", "Sport");
-                break;
-            case "5":
-                fetchData("http://localhost:5000/api/events", "Contemporain");
-                break;
-            case "6":
-                fetchData("http://localhost:5000/api/events", "Moyen-Âge");
-                break;
-            case "7":   
-                fetchData("http://localhost:5000/api/events", "Antiquité");
-                break;
-            case "8":
-                fetchData("http://localhost:5000/api/events", "Préhistoire");
-                break;
-            case "9":
-                fetchData("http://localhost:5000/api/events", "Moderne");
-                break;
-            default:
-                fetchData("http://localhost:5000/api/events", "Random");
-        }
-    }, [action, themeData.name]);
+        if (!themeData.name) return; // On attend que le thème soit bien chargé
+    
+        const url = themeData.name === "INSA" ? 
+            "http://localhost:5000/api/events_insa" : 
+            "http://localhost:5000/api/events";
+    
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                let filteredData = data;
+    
+                if (themeData.name === "Random") {
+                    filteredData = data.filter(event =>
+                        event.Catégories.includes("Science") ||
+                        event.Catégories.includes("Histoire") ||
+                        event.Catégories.includes("Sport")
+                    );
+                } else {
+                    filteredData = data.filter(event =>
+                        event.Catégories.includes(themeData.name)
+                    );
+                }
+    
+                if (filteredData.length === 0) {
+                    console.warn("Aucun événement récupéré !");
+                    return;
+                }
+    
+                const shuffled = [...filteredData].sort(() => Math.random() - 0.5);
+                const initial = shuffled.shift();
+                if (!initial) return;
+    
+                initial.fixed = true;
+                initial.position = 500;
+                initial.className = "above";
+    
+                setEvents([initial]);
+                setEventQueue(shuffled);
+            })
+            .catch(error => {
+                console.error("Erreur lors de la récupération des événements :", error);
+            });
+    }, [themeData.name]);
 
     const proposedEvent = eventQueue[currentEventIndex] || null;
 
